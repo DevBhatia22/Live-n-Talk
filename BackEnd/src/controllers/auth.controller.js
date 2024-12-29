@@ -47,3 +47,49 @@ export const signup = async (req, res) => {
         res.status(500).json({message: "Servver error. Cry Emoji."});
     }
 };
+
+export const login = async (req, res) => {
+    const data = req.body;
+    try {
+        const email = data.email;
+        const user = await User.findOne({email});
+        
+        if(!user){
+            return res.status(400).json({message: "Invalid User."});
+        }
+        
+        const auth = await bcrypt.compare(data.password, user.password);
+        
+        if(!auth){
+            return res.status(400).json({message: "Invalid Password."});
+        }
+        
+        genrateToken(user._id, res);
+        
+        res.status(200).json({
+            _id: user._id,
+            fullName: user.fullName,
+            email: email,
+            profilePicture: user.profilePicture
+        })
+    } catch (error) {
+        console.log("Error in login Controller.");
+        
+        res.status(500).json({message: "Error on server, Cry Emote"});
+    }
+};
+
+export const logout = async (req, res) => {
+    try {
+        res.cookie("jwt", "", {maxAge: 0});
+        res.status(200).json({message: "loggedoff succesfully."});
+    } catch (error) {
+        console.log("Error in logout Controller.");
+        
+        res.status(500).json({message: "Error on server, Cry Emote"});
+    }
+};
+
+export const updateProfile = async (req, res) => {
+    
+}
