@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { connectDB } from "./lib/db.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import bodyParser from 'body-parser';
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -12,6 +13,8 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 app.use(cookieParser());
+app.use(bodyParser.json({ limit: '10mb' })); // Set the limit to 10MB
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 app.use(express.json());
 app.use(
     cors({
