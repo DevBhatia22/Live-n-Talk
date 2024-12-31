@@ -115,7 +115,3 @@ The frontend will be accessible via `http://localhost:3000`.
 - **WebSocket**: For real-time communication.
 - **JWT**: For secure authentication.
 - **MongoDB**: For storing chat history and user data.
-
----
-
-This README provides a clear overview of the **Live-n-Talk** project, with step-by-step instructions for setting up, using, and contributing to the project. Let me know if you'd like to customize or add more specific sections to it!
